@@ -1,19 +1,19 @@
-
-class PhoneContainsAlphaSymbols(ValueError,KeyError):
+class PhoneContainsAlphaSymbols(ValueError, KeyError):
     pass
 
+
 def input_error(func):
-    def inner(*args, **kwargs):       
+    def inner(*args, **kwargs):
         try:
-            return func(*args, **kwargs)      
+            return func(*args, **kwargs)
         except PhoneContainsAlphaSymbols:
-            return "Phone cannot contain letters, please try it again."          
+            return "Phone cannot contain letters, please try it again."
         except ValueError:
-            return "Give me name and phone please."       
+            return "Give me name and phone please."
         except KeyError:
             return "Sorry, we couldn't find the contact. Please check the name and try again."
         except IndexError:
-            return "Error"  
+            return "Error"
 
     return inner
 
@@ -25,33 +25,30 @@ def parse_input(user_input):
 
 
 @input_error
-def add_contact(args, contacts):  
-    name, phone = args 
+def add_contact(args, contacts):
+    name, phone = args
     if phone.isnumeric():
         contacts[name] = phone
         return f"Contact {name} added."
     else:
         raise PhoneContainsAlphaSymbols
- 
-   
+
 
 @input_error
 def change_contact(args, contacts):
     if args[0] in contacts.keys():
-        name, phone = args  
+        name, phone = args
         contacts[name] = phone
         return f"Contact {name} updated."
     else:
         raise KeyError
 
 
-    
-
 @input_error
 def show_phone(args, contacts):
     args[0] in contacts
     return contacts[args[0]]
-    
+
 
 @input_error
 def show_all(contacts):
