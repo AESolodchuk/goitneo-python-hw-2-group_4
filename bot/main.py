@@ -13,7 +13,7 @@ def input_error(func):
         except KeyError:
             return "Sorry, we couldn't find the contact. Please check the name and try again."
         except IndexError:
-            return "Error"   
+            return "Error"  
 
     return inner
 
